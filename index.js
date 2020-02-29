@@ -206,3 +206,41 @@ function addDepartment(data) {
   });
   endOrMenu();
 }
+
+function addRole() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is the name of the new employee role?",
+        name: "title"
+      },
+      {
+        type: "input",
+        message: "How much is the salary of the new role?",
+        name: "salary"
+      },
+      {
+        type: "list",
+        message: "In which department is the new role?",
+        name: "id",
+        choices: showdepartments
+      }
+    ])
+    .then(function (response) {
+      // console.log(response);
+      addEmployeeRole(response);
+    })
+}
+
+function addEmployeeRole(data) {
+  connection.query("INSERT INTO role SET ?", {
+    title: data.title,
+    salary: data.salary,
+    department_id: data.id
+  }, function (error, res) {
+    // console.log(error, res);
+    if (error) throw error;
+  });
+  endOrMenu();
+}
