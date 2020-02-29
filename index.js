@@ -86,3 +86,53 @@ function showmenu() {
       menu(res.choices)
     })
 }
+
+function menu(option) {
+  switch (option) {
+    case "viewEmployees":
+      viewAllEmployees();
+      break;
+    case "viewDepartments":
+      viewAllDepartments();
+      break;
+    case "viewRoles":
+      viewAllRoles();
+      break;
+    case "addEmployee":
+      addEmployee();
+      break;
+    case "addDept":
+      addDept();
+      break;
+    case "addRole":
+      addRole();
+      break;
+    case "updateRole":
+      updateRole();
+      break;
+    case "quit":
+      end();
+  }
+}
+
+function viewAllEmployees() {
+  connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee LEFT JOIN role on employee.role_id = role.id LEFT JOIN department on role.department_id = department.id LEFT JOIN employee manager on manager.id = employee.manager_id;", function (error, res) {
+    console.table(res);
+    endOrMenu();
+  })
+}
+
+function viewAllDepartments() {
+  console.log("view all departments")
+  connection.query("SELECT * from department", function (error, res) {
+    console.table(res);
+    endOrMenu();
+  })
+}
+
+function viewAllRoles() {
+  connection.query("SELECT * from role", function (error, res) {
+    console.table(res);
+    endOrMenu();
+  })
+}
