@@ -38,3 +38,51 @@ connection.connect(function (err) {
 
   showmenu();
 })
+
+// Show inquirer menu
+function showmenu() {
+  inquirer
+    .prompt(
+      {
+        type: "list",
+        message: "Welcome to Employee Tracker. What would you like to do?",
+        name: "choices",
+        choices: [
+          {
+            name: "View all employees",
+            value: "viewEmployees"
+          },
+          {
+            name: "View all departments",
+            value: "viewDepartments"
+          },
+          {
+            name: "View all roles",
+            value: "viewRoles"
+          },
+          {
+            name: "Add employee",
+            value: "addEmployee"
+          },
+          {
+            name: "Add department",
+            value: "addDept"
+          },
+          {
+            name: "Add role",
+            value: "addRole"
+          },
+          {
+            name: "Update role",
+            value: "updateRole"
+          },
+          {
+            name: "Quit",
+            value: "quit"
+          }
+        ]
+      }).then(function (res) {
+        // console.log(res);
+      menu(res.choices)
+    })
+}
