@@ -182,3 +182,27 @@ function addEmployees(data) {
     })
     endOrMenu();
 }
+
+function addDept() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is the name of the new department?",
+        name: "name"
+      }
+    ])
+    .then(function (response) {
+      // console.log(response);
+      addDepartment(response);
+    })
+}
+
+function addDepartment(data) {
+  connection.query("INSERT INTO department SET ?", { name: data.name },
+  function (error, res) {
+    // console.log(error, res);
+    if (error) throw error;
+  });
+  endOrMenu();
+}
