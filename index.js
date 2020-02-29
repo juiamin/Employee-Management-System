@@ -136,3 +136,49 @@ function viewAllRoles() {
     endOrMenu();
   })
 }
+
+// Ask the user for the employee's information.
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        message: "What is the first name?",
+        name: "firstName",
+      },
+      {
+        type: "input",
+        message: "What is the last name?",
+        name: "lastName",
+      },
+      {
+        type: "list",
+        message: "What is the employee's title?",
+        name: "title",
+        choices: showroles
+      },
+      {
+        type: "list",
+        message: "Who is the employee's manager?",
+        name: "manager",
+        choices: showemployees,
+      }
+    ]).then(function (response) {
+      // console.log(response)
+      addEmployees(response)
+    })
+}
+
+function addEmployees(data) {
+
+  connection.query("INSERT INTO employee SET ?",
+    {
+      first_name: data.firstName,
+      last_name: data.lastName,
+      role_id: data.title,
+      manager_id: data.manager
+    }, function (error, res) {
+      if (error) throw error;
+    })
+    endOrMenu();
+}
