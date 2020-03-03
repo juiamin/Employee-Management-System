@@ -239,7 +239,7 @@ function addEmployeeRole(data) {
     salary: data.salary,
     department_id: data.id
   }, function (error, res) {
-    // console.log(error, res);
+    //console.log(error, res);
     if (error) throw error;
   });
   endOrMenu();
@@ -286,7 +286,7 @@ function endOrMenu() {
 }
 
 function end() {
-  console.log("Thank you for using Employee Tracker!");
+  console.log("Thank you for using Employee Management System!");
   connection.end();
   process.exit();
 }
